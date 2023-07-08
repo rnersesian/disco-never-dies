@@ -15,12 +15,16 @@ public class Dancing : MonoBehaviour
     public float turnTimer = 0f;
 
     public List<Tuple<float,int>> moveHistory = new List<Tuple<float,int>>();
+    private Dictionary<KeyCode,int> DanceMoves = new Dictionary<KeyCode,int>();
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        DanceMoves.Add(KeyCode.UpArrow, 0);
+        DanceMoves.Add(KeyCode.LeftArrow, 1);
+        DanceMoves.Add(KeyCode.DownArrow, 2);
+        DanceMoves.Add(KeyCode.RightArrow, 3);
     }
 
     // Update is called once per frame
@@ -32,28 +36,18 @@ public class Dancing : MonoBehaviour
 
         if (playerTurn)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            // Save Player's moves 
+            foreach(KeyValuePair<KeyCode, int> _move in DanceMoves)
             {
-                GameObject.Instantiate(moves[0], PlayerSpawnPosition, transform.rotation);
-                moveHistory.Add(Tuple.Create(turnTimer, 0));
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                GameObject.Instantiate(moves[1], PlayerSpawnPosition, transform.rotation);
-                moveHistory.Add(Tuple.Create(turnTimer, 1));
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                GameObject.Instantiate(moves[2], PlayerSpawnPosition, transform.rotation);
-                moveHistory.Add(Tuple.Create(turnTimer, 2));
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                GameObject.Instantiate(moves[3], PlayerSpawnPosition, transform.rotation);
-                moveHistory.Add(Tuple.Create(turnTimer, 3));
+                if (Input.GetKeyDown(_move.Key)) {
+                    GameObject.Instantiate(moves[_move.Value], PlayerSpawnPosition, transform.rotation);
+                    moveHistory.Add(Tuple.Create(turnTimer, _move.Value));
+                    break;
+                }
             }
         } else
         {
+            //IA repeats the player's moves
             if (moveHistory.Count > 0)
             {
                 if (moveHistory[0].Item1 < turnTimer)
