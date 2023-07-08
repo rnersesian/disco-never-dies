@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4292d66a522f8f488a4ea2fe2d22483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 0
+  bpm: 120
   maxRadius: 5
   radius: 0
   timer: 0

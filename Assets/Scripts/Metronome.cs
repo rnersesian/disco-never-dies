@@ -22,6 +22,6 @@ public class Metronome : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        transform.localScale = Vector3.one * Mathf.Abs(Mathf.Sin(timer/Mathf.PI * 20));
+        transform.localScale = Vector3.one * maxRadius * Mathf.Abs(Mathf.Sin(timer/Mathf.PI * 10*bpm/60));
     }
 }
