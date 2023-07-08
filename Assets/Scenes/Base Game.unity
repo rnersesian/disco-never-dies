@@ -604,8 +604,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm: 120
   maxRadius: 3
+  minRadius: 2.5
   radius: 0
   timer: 0
+  isActive: 1
 --- !u!4 &622154119
 Transform:
   m_ObjectHideFlags: 0
