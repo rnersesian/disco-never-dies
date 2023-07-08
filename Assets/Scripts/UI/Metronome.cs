@@ -25,11 +25,13 @@ public class Metronome : MonoBehaviour
         if (!isActive) return;
 
         timer += Time.deltaTime;
-        transform.localScale = Vector3.one * (maxRadius * Mathf.Abs(Mathf.Sin(timer/Mathf.PI * 10*bpm/60)) + minRadius);
+        ///transform.localScale = Vector3.one * (maxRadius * Mathf.Abs(Mathf.Sin(timer/Mathf.PI * 10*bpm/60 - Mathf.PI/4f)) + minRadius);
+        transform.localScale = Vector3.one * (maxRadius * Mathf.Abs(Mathf.Sin(timer * Mathf.PI * bpm/60)) + minRadius);
     }
 
     public void setMetronome(bool value)
     {
         isActive = value;
     }
+
 }

@@ -14,10 +14,14 @@ public class InputRecorder : MonoBehaviour
     public float cdDuration = 3f;
     public float cdTimer;
 
+    public GameObject[] moves;
+
+
     public float timer;
     public string fileName;
 
     public Metronome metronome;
+    public AudioSource musicPlayer;
 
     public List<Tuple<float, int>> moveHistory = new List<Tuple<float, int>>();
     private Dictionary<KeyCode, int> DanceMoves = new Dictionary<KeyCode, int>();
@@ -29,6 +33,8 @@ public class InputRecorder : MonoBehaviour
         DanceMoves.Add(KeyCode.LeftArrow, 1);
         DanceMoves.Add(KeyCode.DownArrow, 2);
         DanceMoves.Add(KeyCode.RightArrow, 3);
+
+        musicPlayer = GameObject.Find("MusicPlayer").GetComponent<AudioSource>();
 
         cdTimer = cdDuration;
         StartCoroutine(startCountDown());
@@ -46,7 +52,8 @@ public class InputRecorder : MonoBehaviour
             if (Input.GetKeyDown(_move.Key))
             {
                 moveHistory.Add(Tuple.Create(timer, _move.Value));
-                Debug.Log(_move.Value);
+                GameObject.Instantiate(moves[_move.Value], new Vector2(3,0), transform.rotation);
+
                 break;
             }
         }
@@ -54,21 +61,6 @@ public class InputRecorder : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             saveFile();
-            /*
-            string path = Application.dataPath + "/Levels/" + fileName + ".txt";
-            if (!File.Exists(path))
-            {
-                File.Create(path);
-                Debug.Log("File created !");
-                StreamWriter sw = new StreamWriter(path);
-
-                foreach (Tuple<float, int> _move in moveHistory)
-                {
-                    sw.WriteLine(_move.Item1.ToString() + "|" +  _move.Item2.ToString() + "\n");
-                }
-
-                sw.Close();
-            }*/
         }
     }
 
@@ -101,6 +93,7 @@ public class InputRecorder : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdown.text = "Let's Dance !";
         metronome.setMetronome(true);
+        musicPlayer.enabled = true;
         yield return new WaitForSeconds(2f);
         countdown.gameObject.SetActive(false);
     }
