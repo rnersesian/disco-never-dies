@@ -15,16 +15,33 @@ public class Dancing : MonoBehaviour
     public float turnTimer = 0f;
 
     public List<Tuple<float,int>> moveHistory = new List<Tuple<float,int>>();
+
     private Dictionary<KeyCode,int> DanceMoves = new Dictionary<KeyCode,int>();
+    private Dictionary<int, string> danceAnimations = new Dictionary<int, string>();
+
+    public GameObject player;
+    public GameObject enemy;
+
+    private int danceIter = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
         DanceMoves.Add(KeyCode.UpArrow, 0);
+        danceAnimations.Add(0, "Discomec_haut");
+
         DanceMoves.Add(KeyCode.LeftArrow, 1);
+        danceAnimations.Add(1, "Discomec_gauche");
+
+
         DanceMoves.Add(KeyCode.DownArrow, 2);
+        danceAnimations.Add(2, "Discomec_bas");
+
+
         DanceMoves.Add(KeyCode.RightArrow, 3);
+        danceAnimations.Add(3, "Discomec_droite");
+
     }
 
     // Update is called once per frame
@@ -48,12 +65,15 @@ public class Dancing : MonoBehaviour
         } else
         {
             //IA repeats the player's moves
+            //enemy.GetComponent<Animator>().Play("Discomec_droite");
+
             if (moveHistory.Count > 0)
             {
-                if (moveHistory[0].Item1 < turnTimer)
+                Debug.Log(danceIter);
+                if (danceIter < moveHistory.Count && moveHistory[danceIter].Item1 < turnTimer)
                 {
-                    GameObject.Instantiate(moves[moveHistory[0].Item2], EnemySpawnPosition, transform.rotation);
-                    moveHistory.RemoveRange(0, 1);
+                    GameObject.Instantiate(moves[moveHistory[danceIter].Item2], EnemySpawnPosition, transform.rotation);
+                    danceIter++;
                 }
             }
         }
@@ -62,9 +82,15 @@ public class Dancing : MonoBehaviour
     public void changeTurn()
     {
         turnTimer = 0;
+        danceIter = 0;
         if (!playerTurn)
         {
             moveHistory = new List<Tuple<float, int>>();
+            enemy.GetComponent<PlayerAnimation>().dance(danceAnimations, moveHistory);
+
+        } else
+        {
+            enemy.GetComponent<PlayerAnimation>().dance(danceAnimations, moveHistory);
         }
         playerTurn = !playerTurn;
     }

@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 7298826466643934729}
   - component: {fileID: 5827778238142119185}
   - component: {fileID: 3718221968950264997}
+  - component: {fileID: -8656621796742520942}
   m_Layer: 0
   m_Name: disomec
   m_TagString: Untagged
@@ -461,6 +462,27 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
+--- !u!95 &-8656621796742520942
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443299200798317191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: adc35fc0ce7dcf441b9b03e6798b1899, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1829891220678731988
 GameObject:
   m_ObjectHideFlags: 0

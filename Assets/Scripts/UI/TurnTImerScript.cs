@@ -27,11 +27,12 @@ public class TurnTImerScript : MonoBehaviour
     void Update()
     {
         if (timer >= timerDuration) timer -= timerDuration;
+        timer += Time.deltaTime;
+
 
         float amount = 1f - timer / timerDuration;
         left.fillAmount = amount;
         right.fillAmount = amount;
-        timer += Time.deltaTime;
 
         if (danceManager.playerTurn)
         {
